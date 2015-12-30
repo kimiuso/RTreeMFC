@@ -58,12 +58,14 @@ CRTreeMFCDlg::CRTreeMFCDlg(CWnd* pParent /*=NULL*/)
 void CRTreeMFCDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_TAB1, m_tab);
 }
 
 BEGIN_MESSAGE_MAP(CRTreeMFCDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_NOTIFY(TCN_SELCHANGE, IDC_TAB1, &CRTreeMFCDlg::OnTcnSelchangeTab1)
 END_MESSAGE_MAP()
 
 
@@ -99,6 +101,20 @@ BOOL CRTreeMFCDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	// TODO: 在此添加额外的初始化代码
+
+	m_tab.InsertItem(0, _T("tab1"));
+	m_tab1dlg.Create(IDD_TAB1DIALOG, GetDlgItem(IDC_TAB1));
+	CRect rs;
+	m_tab.GetClientRect(&rs);
+	//调整子对话框在父窗口中的位置
+	rs.top += 80;
+	rs.bottom -= 15;
+	rs.left += 15;
+	rs.right = rs.right / 2 - 15;
+	//设置子对话框尺寸并移动到指定位置
+	m_tab1dlg.MoveWindow(&rs);
+	//分别设置隐藏和显示
+	m_tab1dlg.ShowWindow(1);
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -152,3 +168,10 @@ HCURSOR CRTreeMFCDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
+void CRTreeMFCDlg::OnTcnSelchangeTab1(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	// TODO: 在此添加控件通知处理程序代码
+	*pResult = 0;
+}
