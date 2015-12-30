@@ -74,7 +74,18 @@ void CTab1::OnLButtonUp(UINT nFlags, CPoint point)
 	CRect rect(0, 0, 0, 0);
 	dc.DrawDragRect(rect, CSize(1, 1), m_rect, CSize(1, 1), NULL, NULL);
 	//dc.DrawDragRect(m_rect, CSize(1, 1), NULL, CSize(1, 1), NULL, NULL);
+	//dc.Rectangle(m_rect);
+
+	CPen pen(PS_SOLID, 1, RGB(234, 23, 53));
+	CPen *pOldPen = dc.SelectObject(&pen);
+	CBrush *pBrush = CBrush::FromHandle((HBRUSH)
+		GetStockObject(NULL_BRUSH));
+	CBrush *pOldBrush = dc.SelectObject(pBrush);//保存原有画刷
 	dc.Rectangle(m_rect);
+	dc.SelectObject(pOldPen);
+	dc.SelectObject(pOldBrush);//恢复原有画刷
+
+
 	m_rect = rect;
 
 
