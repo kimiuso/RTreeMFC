@@ -5,6 +5,7 @@
 #pragma once
 #include "afxcmn.h"
 #include "Tab1.h"
+#include "TabDlg.h"
 
 
 // CRTreeMFCDlg ¶Ô»°¿ò
@@ -35,6 +36,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	CTabCtrl m_tab;
+	CTabDlg m_tabdlg1;
 	CTab1 m_tab1dlg;
 	afx_msg void OnTcnSelchangeTab1(NMHDR *pNMHDR, LRESULT *pResult);
 };

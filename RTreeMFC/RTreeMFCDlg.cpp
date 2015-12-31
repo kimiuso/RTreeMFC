@@ -102,19 +102,35 @@ BOOL CRTreeMFCDlg::OnInitDialog()
 
 	// TODO: 在此添加额外的初始化代码
 
+	///////////////     m_tabdlg1      //////////////
 	m_tab.InsertItem(0, _T("tab1"));
-	m_tab1dlg.Create(IDD_TAB1DIALOG, GetDlgItem(IDC_TAB1));
+	m_tabdlg1.Create(IDD_TABDLG, GetDlgItem(IDC_TAB1));
 	CRect rs;
 	m_tab.GetClientRect(&rs);
 	//调整子对话框在父窗口中的位置
-	rs.top += 80;
+	rs.top += 35;
 	rs.bottom -= 15;
 	rs.left += 15;
-	rs.right = rs.right / 2 - 15;
+	rs.right = rs.right - 15;
 	//设置子对话框尺寸并移动到指定位置
-	m_tab1dlg.MoveWindow(&rs);
+	m_tabdlg1.MoveWindow(&rs);
 	//分别设置隐藏和显示
+	m_tabdlg1.ShowWindow(1);
+
+	    ///////////      m_tab1dlg    ///////
+	m_tab1dlg.Create(IDD_TAB1DIALOG, GetDlgItem(IDD_TABDLG));
+	//m_tabdlg1.GetClientRect(&rs);
+	//rs.top += 35;
+	//rs.bottom -= 15;
+	//rs.left += 15;
+	//rs.right = rs.right - 15;
+	m_tab1dlg.MoveWindow(&rs);
 	m_tab1dlg.ShowWindow(1);
+	    /////////////////////////////////////
+	////////////////////////////////////////////
+
+	///////////////     tab2      //////////////
+	m_tab.InsertItem(1, _T("tab2"));
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -173,5 +189,20 @@ HCURSOR CRTreeMFCDlg::OnQueryDragIcon()
 void CRTreeMFCDlg::OnTcnSelchangeTab1(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	// TODO: 在此添加控件通知处理程序代码
+	int CurSel = m_tab.GetCurSel();
+	switch (CurSel)
+	{
+	case 0:
+		m_tab1dlg.ShowWindow(true);
+		//m_para2.ShowWindow(false);
+		break;
+	case 1:
+		m_tab1dlg.ShowWindow(false);
+		break;
+	default:
+		;
+	}
+
+
 	*pResult = 0;
 }
